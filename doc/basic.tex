@@ -1,0 +1,104 @@
+\section{Language}
+
+
+A language has to be defined before anything else, no language nothing to implement. 
+The specification is going to be under construction for a good while (if it ever is done).
+Reason for this being that I might make a suboptimal solution that needs to be swapped out.I plan on structuring the language by taking the parts of different languages that I like the most, without making it messy. 
+
+
+
+\subsection{Lists}
+
+
+The list handling will be heavily inspired by how it's described in the GNU Emacs manual\cite{fsf:22}. 
+Flow handling, like the calling of functions and such is done withing two parentheses.
+
+\begin{lstlisting}[caption=Example of how the function list looks]
+(+ 1 2)
+\end{lstlisting}
+
+The first entry in this list is the function to be called, the following values are arguments to this function. 
+The arguments can themselves include lists, leading to interesting results. 
+\begin{lstlisting}[caption=Nesting of functions!]
+(+ (+ 1 2) (+ 3 4))
+\end{lstlisting}
+
+There are also lists which are not evaluated. 
+These inspired by \cite{fsf:22} are declared with the character `` ' ''.
+
+\begin{lstlisting}[caption=Example of how a list with only plain values look]
+'(a b c)
+\end{lstlisting}
+
+These two in combination provide a way through which functions can be called, and also a way through which plain lists are declared. 
+Both of them can then be combined as seen in listing \ref{listing:listexample}
+
+\begin{lstlisting}[caption=Function list with a pure list as one of the arguments,
+	label=listing:listexample]
+(fun '(a b c) '(d e f) )
+\end{lstlisting}
+
+
+
+\subsection{Variables}
+
+Starting off only four different kinds of basic types will be used: integers, floats, char and string. 
+More might be added at a later stage.
+
+Boolean will not be it's own type, it will instead be handled similar to how it's done in C.
+Any non-zero value will therefore be regarded as true, while zero is treated as false. 
+
+\subsubsection{Operators}
+
+A language typically include different kinds of operators which the data types can be manipulated with, this one is no difference.
+This however requires a defined system of what should happen with each combination of operator. 
+
+The operators currently defined are:
+\begin{itemize}
+	\item \texttt{+}
+	\item \texttt{-}
+	\item \texttt{==}
+	\item \texttt{<}
+	\item \texttt{*}
+	\item \texttt{!}
+	\item \texttt{\&\&}
+	\item \texttt{||}
+	\item More to be added here
+\end{itemize}
+
+More operators exist, but this is at the moment kept to a minimum. 
+This is because having more operators would mean more rules to define. 
+It is therefore beneficial to include redundant operators. 
+For example the operator \texttt{>} i.e is not needed as \texttt{<} exists.
+The function can instead be defined in code in terms of the other as shown in listing \ref{listing:biggerthandefined}
+
+\begin{lstlisting}[caption=Bigger than function defined in terms of less than,
+label=listing:biggerthandefined]
+(def > (arg1 arg2)
+	(< arg2 arg1)
+)
+\end{lstlisting}
+
+The same can be done for other functions, more examples are shown below.
+
+\begin{lstlisting}[caption=Less than or equal to defined with the OR operator]
+(def <= (arg1 arg2)
+	(|| 
+		(< arg1 arg2)
+		(== arg1 arg2)
+	)
+)
+\end{lstlisting}
+
+\begin{lstlisting}[caption=More than or equal to defined with less than or equal to]
+(def >= (arg1 arg2)
+	(<= arg2 arg1) 
+)
+\end{lstlisting}
+
+\begin{lstlisting}[caption=Definition for is not equal with the invert operator]
+(def != (arg1 arg2)
+	(! (== arg1 arg2))
+)
+\end{lstlisting}
+

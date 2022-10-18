@@ -39,6 +39,33 @@ Both of them can then be combined as seen in listing \ref{listing:listexample}
 \end{lstlisting}
 
 
+\subsection{Keywords}
+
+The programming language contains some keywords which have different functions.
+A keyword is a reserved word in the language, meaning that nothing can have the same name as it. 
+All keywords currently defined is listed below each in it's own subsection.
+Do note that this is not a definit list, new keywords might be added or renamed.
+
+\subsubsection{def}
+
+\texttt{def} is the keyword used to define functions.
+Listings \ref{listing:defexample} shows how this is to be used.
+The keyword def is used followed by the name of the function to be defined. 
+It then expects a list which is the amount of arguments given.
+The defined function would then be called as shown in listing \ref{listing:defexamplecall}
+
+\begin{lstlisting}[caption=Example of how the keyword def is to be used,
+	label=listing:defexample]
+(def adding (arg1 arg2)
+	(+ arg1 arg2)
+)
+\end{lstlisting}
+
+\begin{lstlisting}[caption=Calling a function named adding with two integers as argument,
+	label=listing:defexamplecall]
+(adding 4 9)
+\end{lstlisting}
+
 
 \subsection{Variables}
 

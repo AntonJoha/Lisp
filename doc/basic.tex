@@ -129,3 +129,30 @@ The same can be done for other functions, more examples are shown below.
 )
 \end{lstlisting}
 
+
+\section{Grammar}
+
+This is a grammar presented in a BNF. 
+
+
+\begin{lstlisting}
+expression-list ::= <expression> | <expression> <expression-list>
+expression ::= <list> 
+	| <evals>
+list ::= '( <entry> )
+evals ::= ( <func> <expression-list> ) 
+	| ( <func> )
+func ::= <funcname> | <pre-defined>
+pre-defined ::= [a-z,A-Z][a-z,A-Z,0-9,_]*
+	| <operator>
+<entry> ::= 
+operator ::= *
+	| +
+	| -
+	| !
+	| < 
+	| ||
+	| ==
+	| &&
+\end{lstlisting}
+

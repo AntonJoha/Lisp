@@ -32,21 +32,57 @@ fn match_entry(input: &mut VecDeque<lexer::Entry>, t: lexer::Token) -> bool {
     
 }
 
-fn func(input: &mut VecDeque<lexer::Entry>) -> bool {
-    panic!("TODO THIS");
+fn entry(input: &mut VecDeque<lexer::Entry>) -> bool {
+    if peek(input, lexer::Token::Open) {
+        expression_list(input)
+    }
+    else if peek(input, lexer::Token::Pure) {
+        list(input)
+    }
+    else {
+        match_entry(input, lexer::Token::Number) ||
+        match_entry(input, lexer::Token::Id) ||
+        match_entry(input, lexer::Token::Float)
+    }
+}
+
+fn entry_list(input: &mut VecDeque<lexer::Entry>) -> bool {
+    if peek(input, lexer::Token::Close) {
+        true
+    }
+    else {
+        entry(input) && 
+        entry_list(input)
+    }
 }
 
 fn list(input: &mut VecDeque<lexer::Entry>) -> bool {
+    match_entry(input, lexer::Token::Pure) &&
+    match_entry(input, lexer::Token::Open) &&
+    entry_list(input) &&
+    match_entry(input, lexer::Token::Close)
+}
+
+fn func(input: &mut VecDeque<lexer::Entry>) -> bool {
     panic!("TODO THIS");
 }
 
 fn evals(input: &mut VecDeque<lexer::Entry>) -> bool {
     match_entry(input, lexer::Token::Open) &&
-        func(input) &&
-    {
-        panic!("TODO THIS")
-    } &&
+    func(input) &&
+    entry_list(input) &&
     match_entry(input, lexer::Token::Close)
+}
+
+fn expression_list(input: &mut VecDeque<lexer::Entry>) -> bool{
+    expression(input) && 
+    {
+        if peek(input, lexer::Token::Open) {
+            expression_list(input)
+        }
+        else { true }
+    }
+
 }
 
 fn expression(input: &mut VecDeque<lexer::Entry>) ->  bool{
@@ -65,7 +101,7 @@ fn expression(input: &mut VecDeque<lexer::Entry>) ->  bool{
 
 
 pub fn parse(input: &mut VecDeque<lexer::Entry>) -> bool {
-    return expression(input);
+    return expression_list(input);
 }
 
 

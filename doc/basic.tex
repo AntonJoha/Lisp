@@ -143,9 +143,9 @@ expression ::= <list>
 list ::= '( <entry-list> )
 evals ::= ( <func> <entry-list> ) 
 func ::= <operator> | <pre-defined>
-string ::= [a-z,A-Z][a-z,A-Z,0-9,\_]+
+id ::= [a-z,A-Z][a-z,A-Z,0-9,\_]+
 	| <operator> 
-<entry> ::= <number> | <string> | <expression-list>
+<entry> ::= <number> | <id> | <expression-list>
 <number> ::= <integer> | <float> 
 <integer> ::= [0-9]+
 <float> ::= [0-9]+ . [0-9]

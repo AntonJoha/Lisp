@@ -19,6 +19,7 @@ pub enum Token{
     Float,
     Error,
     Pure,
+    EOF,
 }
 
 pub struct Entry{
@@ -152,6 +153,7 @@ pub fn lexer(input: String) -> Result<VecDeque<Entry>, String> {
         };
 
     }
+    to_return.push_back(Entry {lexeme: "".to_string(), t: Token::EOF});
     return Ok(to_return);
 }
 

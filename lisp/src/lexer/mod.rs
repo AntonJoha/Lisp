@@ -149,7 +149,6 @@ pub fn lexer(input: String) -> Result<VecDeque<Entry>, String> {
         };
 
     }
- 
     return Ok(to_return);
 }
 

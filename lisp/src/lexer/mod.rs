@@ -1,5 +1,6 @@
 use std::collections::VecDeque;
 
+#[derive(Eq, PartialEq, Debug)]
 pub enum Token{
     Plus,
     Minus,
@@ -17,6 +18,7 @@ pub enum Token{
     Number,
     Float,
     Error,
+    Pure,
 }
 
 pub struct Entry{
@@ -133,19 +135,20 @@ pub fn lexer(input: String) -> Result<VecDeque<Entry>, String> {
     while chars.len() > 0 {
         
         match chars.pop_front().unwrap(){
-            '+' => to_return.push_front(Entry {lexeme: "+".to_string(), t: Token::Plus}),
-            '-' => to_return.push_front(Entry {lexeme: "-".to_string(), t: Token::Minus}),
-            '*' => to_return.push_front(Entry {lexeme: "*".to_string(), t: Token::Mult}),
-            '/' => to_return.push_front(Entry {lexeme: "/".to_string(), t: Token::Div}),
-            '=' => to_return.push_front(handle_equal(&mut chars)),
-            '<' => to_return.push_front(Entry {lexeme: "<".to_string(), t: Token::Less}),
-            '!' => to_return.push_front(Entry {lexeme: "!".to_string(), t: Token::Not}),
-            '&' => to_return.push_front(handle_and(&mut chars)),
-            '|' => to_return.push_front(handle_or(&mut chars)),
+            '+' => to_return.push_back(Entry {lexeme: "+".to_string(), t: Token::Plus}),
+            '-' => to_return.push_back(Entry {lexeme: "-".to_string(), t: Token::Minus}),
+            '*' => to_return.push_back(Entry {lexeme: "*".to_string(), t: Token::Mult}),
+            '/' => to_return.push_back(Entry {lexeme: "/".to_string(), t: Token::Div}),
+            '=' => to_return.push_back(handle_equal(&mut chars)),
+            '<' => to_return.push_back(Entry {lexeme: "<".to_string(), t: Token::Less}),
+            '!' => to_return.push_back(Entry {lexeme: "!".to_string(), t: Token::Not}),
+            '&' => to_return.push_back(handle_and(&mut chars)),
+            '|' => to_return.push_back(handle_or(&mut chars)),
             ' ' | '\n' | '\t' | '\r' => (),
-            '(' => to_return.push_front(Entry {lexeme: "(".to_string(), t: Token::Open}),
-            ')' => to_return.push_front(Entry {lexeme: ")".to_string(), t: Token::Close}),
-            e => to_return.push_front(handle_rest(&mut chars, e)),
+            '(' => to_return.push_back(Entry {lexeme: "(".to_string(), t: Token::Open}),
+            ')' => to_return.push_back(Entry {lexeme: ")".to_string(), t: Token::Close}),
+            '\'' => to_return.push_back(Entry {lexeme: "'".to_string(), t: Token::Pure}),
+            e => to_return.push_back(handle_rest(&mut chars, e)),
         };
 
     }

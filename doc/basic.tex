@@ -140,7 +140,7 @@ This is a grammar presented in a BNF.
 expression-list ::= <expression> <expression-list> | <expression>
 expression ::= <list> 
 	| <evals>
-list ::= '( <entry> )
+list ::= '( <entry-list> )
 evals ::= ( <func> <entry-list> ) 
 func ::= <operator> | <pre-defined>
 string ::= [a-z,A-Z][a-z,A-Z,0-9,\_]+

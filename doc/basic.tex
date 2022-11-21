@@ -140,17 +140,17 @@ This is a grammar presented in a BNF.
 expression-list ::= <expression> <expression-list> | <expression>
 expression ::= <list> 
 	| <evals>
-	| <entry-list>
-list ::= '( <entry> )
-evals ::= ( <func> <expression-list> ) 
-func ::= <funcname> | <pre-defined>
-pre-defined ::= [a-z,A-Z][a-z,A-Z,0-9,\_]+
+list ::= '( <entry-list> )
+evals ::= ( <func> <entry-list> ) 
+func ::= <operator> | <pre-defined>
+id ::= [a-z,A-Z][a-z,A-Z,0-9,\_]+
 	| <operator> 
-<entry> ::= <number> | <string> 
+string ::= "[.]*"
+<entry> ::= <number> | <id> | <expression-list> | <string>
 <number> ::= <integer> | <float> 
 <integer> ::= [0-9]+
 <float> ::= [0-9]+ . [0-9]
-<entry-list> ::= <entry> <entry-list> | <entry>
+<entry-list> ::= <entry> <entry-list> | empty
 operator ::= *
 	| +
 	| -

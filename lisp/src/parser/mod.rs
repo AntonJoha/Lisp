@@ -25,7 +25,7 @@ fn peek(input: &mut VecDeque<lexer::Entry>, t: lexer::Token) -> bool {
 }
 
 fn match_entry(input: &mut VecDeque<lexer::Entry>, t: lexer::Token) -> bool {
-    if peek(input, t) {
+    if peek(input, t.clone()) {
         match input.pop_front() {
             Some(e) => {
                 input.push_back(e);
@@ -34,7 +34,17 @@ fn match_entry(input: &mut VecDeque<lexer::Entry>, t: lexer::Token) -> bool {
             None => false, //This should never happen due to the previous check
         }
     } else {
-        true
+        println!("Error tried to match {:?}, found {:?} lexeme: {}", t,
+                 match input.get(0) {
+                    Some(v) => v.t.clone(),
+                    None => lexer::Token::Error
+                 },
+                 match input.get(0) {
+                    Some(v) => v.lexeme.clone(),
+                    None => "".to_string(),
+                 }
+                 );
+        false
     }
 }
 
@@ -44,9 +54,10 @@ fn entry(input: &mut VecDeque<lexer::Entry>) -> bool {
     } else if peek(input, lexer::Token::Pure) {
         list(input)
     } else {
-        match_entry(input, lexer::Token::Number)
-            || match_entry(input, lexer::Token::Id)
-            || match_entry(input, lexer::Token::Float)
+        peek_match(input, lexer::Token::Number)
+            || peek_match(input, lexer::Token::Id)
+            || peek_match(input, lexer::Token::Float)
+            || peek_match(input, lexer::Token::String)
     }
 }
 
@@ -113,6 +124,7 @@ fn expression_list(input: &mut VecDeque<lexer::Entry>) -> bool {
             true
         }
     }
+
 }
 
 fn expression(input: &mut VecDeque<lexer::Entry>) -> bool {
@@ -121,13 +133,12 @@ fn expression(input: &mut VecDeque<lexer::Entry>) -> bool {
         evals(input)
     }
     //If it's a pure list
-    else if peek(input, lexer::Token::Pure) {
+    else {
         list(input)
-    } else {
-        false
     }
 }
 
 pub fn parse(input: &mut VecDeque<lexer::Entry>) -> bool {
-    return expression_list(input);
+    expression_list(input) &&
+    match_entry(input, lexer::Token::EOF)
 }

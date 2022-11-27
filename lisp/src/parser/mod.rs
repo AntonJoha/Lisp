@@ -1,6 +1,8 @@
 use super::lexer;
 use std::collections::VecDeque;
 
+
+
 //This is like a match_entry but not supposed to generate an error
 fn peek_match(input: &mut VecDeque<lexer::Entry>, t: lexer::Token) -> bool {
     if peek(input, t.clone()) {

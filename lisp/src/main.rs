@@ -27,10 +27,7 @@ fn main() {
             Ok(e) => e, 
             _ => {println!("Weird input"); continue;}
         };
-        for i in &a{
-            println! ("{:?}", i.t.clone());
-        }
-        println!("New");
+        
         if !parser::parse(&mut a) {
             println!("Parse failed"); continue;
         }

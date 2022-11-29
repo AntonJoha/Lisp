@@ -35,7 +35,6 @@ fn process(input: &mut VecDeque<lexer::Entry>) -> Value {
             to_return.push_back(process(input));
         }
         l => {
-            println!("{:?}", l);
             let mut result: Value;
             let mut argument: VecDeque<Value> = VecDeque::new();
             loop {
@@ -46,9 +45,11 @@ fn process(input: &mut VecDeque<lexer::Entry>) -> Value {
                 match t.t.clone() {
                     lexer::Token::Close => {
                         result = call_func(fun, argument);
-                        println!("Add");
                         break;
-                    }
+                    },
+                    lexer::Token::Open => {
+                        argument.push_back(process(input));
+                    },
                     _ => {
                         argument.push_back(Value {literal: t.lexeme, t: t.t, list: VecDeque::new()});
                     }
@@ -80,9 +81,8 @@ fn process(input: &mut VecDeque<lexer::Entry>) -> Value {
 fn print_value(v: Value) {
 
     if v.t == lexer::Token::Open {
-        print!("( {} ", v.list.len());
+        print!("( ");
         for a in v.list {
-            print!("here ");
             print_value(a);
         }
         print!(") ");

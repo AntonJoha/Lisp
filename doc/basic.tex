@@ -100,6 +100,9 @@ It is therefore beneficial to include redundant operators.
 For example the operator \texttt{>} i.e is not needed as \texttt{<} exists.
 The function can instead be defined in code in terms of the other as shown in listing \ref{listing:biggerthandefined}
 
+
+
+
 \begin{lstlisting}[caption=Bigger than function defined in terms of less than,
 label=listing:biggerthandefined]
 (def > (arg1 arg2)
@@ -130,6 +133,47 @@ The same can be done for other functions, more examples are shown below.
 )
 \end{lstlisting}
 
+
+\subsubsection{Type interactions}
+
+Different types and different operators that interact with each other need to be handled in different ways. 
+The operation for an addition of two integers is simple.
+Both are integers so they can just be added together. 
+\begin{lstlisting}[caption=Addition of two integers]
+(+ 2 3)
+\end{lstlisting}
+
+Issues however arise when different types of interact with each other. 
+What does it mean for if a string is added against an integer?
+The JavaScript example converts the integer to a string and then appends the latter to the first. 
+\begin{lstlisting}[caption=Enter this into the browser console and verify for yourself]
+	a = "4" + 2
+\end{lstlisting}
+The result from the operators is decided by rules set in the language specs.
+Following this is a specification for rules in this language.
+This as all other lists are currently incomplete. 
+
+\begin{table}
+\begin{center}
+\begin{tabular}{ |c|c|c|c| }
+ \hline
+ operator & first & second & result   \\ \hline
+ + & integer & integer & integer   \\ \hline
+ + & integer & float & float\\ 	\hline
+ + & integer & string & string \\ \hline
+ + & integer & char & integer \\ \hline
+ + & string & string & string \\ \hline
+ + & string & char & string \\ \hline
+ + & float & char & float \\ \hline
+ + & float & float & float \\ \hline
+ + & float & string & string \\ \hline
+ + & char & char & integer \\ \hline
+ + & string & float & string \\ \hline
+ + & list & list & list \\ \hline
+\end{tabular}
+\caption{Rules for the + operator, all other actions result in error}
+\end{center}
+\end{table}
 
 \section{Grammar}
 

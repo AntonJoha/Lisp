@@ -1,4 +1,7 @@
 use std::collections::VecDeque;
+mod operators;
+
+
 
 #[derive(Eq, PartialEq, Debug, Clone)]
 pub enum Token {
@@ -15,6 +18,7 @@ pub enum Token {
     Close,
     Id,
     String,
+    Char,
     Number,
     Float,
     Error,
@@ -25,6 +29,10 @@ pub enum Token {
 pub struct Entry {
     pub lexeme: String,
     pub t: Token,
+}
+
+pub fn operator(op: Token, right: Token, left: Token) -> Token {
+    operators::operator_result(op, right, left)
 }
 
 //Valid character in id as specified in the documentation

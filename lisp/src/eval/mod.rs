@@ -2,6 +2,8 @@ use super::lexer;
 use std::collections::VecDeque;
 
 pub mod operator;
+pub mod plus;
+
 
 pub struct Value{
     pub literal: String,
@@ -10,7 +12,12 @@ pub struct Value{
 }
 
 
-fn call_func(fun: lexer::Entry, arguments: VecDeque<Value>) -> Value {
+
+pub fn get_error() -> Value {
+    Value { literal:"".to_string(), t: lexer::Token::Error, list: VecDeque::new()}
+}
+
+pub fn call_func(fun: lexer::Entry, arguments: VecDeque<Value>) -> Value {
     match fun.t.clone(){
         lexer::Token::Id => {
             panic!("Not implemented");
@@ -21,7 +28,7 @@ fn call_func(fun: lexer::Entry, arguments: VecDeque<Value>) -> Value {
     }
 }
 
-fn process(input: &mut VecDeque<lexer::Entry>) -> Value {
+pub fn process(input: &mut VecDeque<lexer::Entry>) -> Value {
 
     let mut to_return: VecDeque<Value> = VecDeque::new();
     

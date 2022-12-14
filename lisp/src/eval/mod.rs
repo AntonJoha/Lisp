@@ -4,6 +4,7 @@ use std::collections::VecDeque;
 pub mod operator;
 pub mod plus;
 pub mod minus;
+pub mod mult;
 
 pub struct Value {
     pub literal: String,

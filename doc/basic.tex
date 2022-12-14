@@ -153,7 +153,7 @@ The result from the operators is decided by rules set in the language specs.
 Following this is a specification for rules in this language.
 This as all other lists are currently incomplete. 
 
-\begin{table}
+\begin{table}[h!]
 \begin{center}
 \begin{tabular}{ |c|c|c|c| }
  \hline
@@ -174,6 +174,40 @@ This as all other lists are currently incomplete.
 \caption{Rules for the + operator, all other actions result in error}
 \end{center}
 \end{table}
+
+\begin{table}[h!]
+\begin{center}
+\begin{tabular}{ |c|c|c|c| }
+ \hline
+ operator & first & second & result   \\ \hline
+ - & integer & integer & integer   \\ \hline
+ - & integer & float & float\\ 	\hline
+ - & integer & char & integer \\ \hline
+ - & float & char & float \\ \hline
+ - & float & float & float \\ \hline
+ - & char & char & integer \\ \hline
+\end{tabular}
+\caption{Rules for the - operator, all other actions result in error}
+\end{center}
+\end{table}
+
+\begin{table}[h!]
+\begin{center}
+\begin{tabular}{ |c|c|c|c| }
+ \hline
+ operator & first & second & result   \\ \hline
+ * & integer & integer & integer   \\ \hline
+ * & integer & float & float\\ 	\hline
+ * & integer & string & string \\ \hline
+ * & integer & char & string \\ \hline
+ * & float & float & float \\ \hline
+\end{tabular}
+\caption{Rules for the * operator, all other actions result in error}
+\end{center}
+\end{table}
+
+
+
 
 \section{Grammar}
 

@@ -30,6 +30,17 @@ fn minus(first: lexer::Token, second: lexer::Token) -> lexer::Token {
     }
 }
 
+fn mult(first: lexer::Token, second: lexer::Token) -> lexer::Token {
+    match (first, second) {
+        (lexer::Token::Number, lexer::Token::Number)  => lexer::Token::Number,
+        (lexer::Token::Float, lexer::Token::Number) => lexer::Token::Float,
+        (lexer::Token::Char, lexer::Token::Number) => lexer::Token::Number,
+        (lexer::Token::Float, lexer::Token::Float) => lexer::Token::Float,
+        (lexer::Token::Char, lexer::Token::Char) => lexer::Token::Number,
+        _ => lexer::Token::Error,
+    }
+}
+
 
 fn find_operator(
     operator: lexer::Token,
@@ -39,6 +50,7 @@ fn find_operator(
     match operator {
         lexer::Token::Plus => plus(first, second),
         lexer::Token::Minus => minus(first, second),
+        lexer::Token::Mult => mult(first, second),
         _ => lexer::Token::Error,
     }
 }

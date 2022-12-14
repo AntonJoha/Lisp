@@ -49,7 +49,7 @@ fn or(arguments: VecDeque<eval::Value>) -> eval::Value {
 pub fn operator_eval(fun: lexer::Entry, arguments: VecDeque<eval::Value>) -> eval::Value {
     match fun.t.clone() {
         lexer::Token::Plus => eval::plus::plus(arguments),
-        lexer::Token::Mult => mult(arguments),
+        lexer::Token::Mult => eval::mult::mult(arguments),
         lexer::Token::Minus => eval::minus::minus(arguments),
         lexer::Token::Equal => equal(arguments),
         lexer::Token::Less => less(arguments),

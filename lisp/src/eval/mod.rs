@@ -5,6 +5,7 @@ pub mod operator;
 pub mod plus;
 pub mod minus;
 pub mod mult;
+pub mod equal;
 
 pub struct Value {
     pub literal: String,

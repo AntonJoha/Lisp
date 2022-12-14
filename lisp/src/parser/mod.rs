@@ -1,14 +1,11 @@
 use super::lexer;
 use std::collections::VecDeque;
 
-
-
 //This is like a match_entry but not supposed to generate an error
 fn peek_match(input: &mut VecDeque<lexer::Entry>, t: lexer::Token) -> bool {
     if peek(input, t.clone()) {
         match_entry(input, t)
-    }
-    else {
+    } else {
         false
     }
 }
@@ -36,16 +33,18 @@ fn match_entry(input: &mut VecDeque<lexer::Entry>, t: lexer::Token) -> bool {
             None => false, //This should never happen due to the previous check
         }
     } else {
-        println!("Error tried to match {:?}, found {:?} lexeme: {}", t,
-                 match input.get(0) {
-                    Some(v) => v.t.clone(),
-                    None => lexer::Token::Error
-                 },
-                 match input.get(0) {
-                    Some(v) => v.lexeme.clone(),
-                    None => "".to_string(),
-                 }
-                 );
+        println!(
+            "Error tried to match {:?}, found {:?} lexeme: {}",
+            t,
+            match input.get(0) {
+                Some(v) => v.t.clone(),
+                None => lexer::Token::Error,
+            },
+            match input.get(0) {
+                Some(v) => v.lexeme.clone(),
+                None => "".to_string(),
+            }
+        );
         false
     }
 }
@@ -79,35 +78,30 @@ fn list(input: &mut VecDeque<lexer::Entry>) -> bool {
 }
 
 fn operator(input: &mut VecDeque<lexer::Entry>) -> bool {
-    peek_match(input, lexer::Token::Plus) ||
-    peek_match(input, lexer::Token::Minus) ||
-    peek_match(input, lexer::Token::Equal) ||
-    peek_match(input, lexer::Token::Less) ||
-    peek_match(input, lexer::Token::Mult) ||
-    peek_match(input, lexer::Token::Div) ||
-    peek_match(input, lexer::Token::Not) ||
-    peek_match(input, lexer::Token::And) ||
-    peek_match(input, lexer::Token::Or) 
-
+    peek_match(input, lexer::Token::Plus)
+        || peek_match(input, lexer::Token::Minus)
+        || peek_match(input, lexer::Token::Equal)
+        || peek_match(input, lexer::Token::Less)
+        || peek_match(input, lexer::Token::Mult)
+        || peek_match(input, lexer::Token::Div)
+        || peek_match(input, lexer::Token::Not)
+        || peek_match(input, lexer::Token::And)
+        || peek_match(input, lexer::Token::Or)
 }
 
 fn func(input: &mut VecDeque<lexer::Entry>) -> bool {
     match input.get(0) {
-        Some(e) => {
-            match e.lexeme.chars().nth(0) {
-                Some(t) => {
-                    if lexer::valid_id_char(t) {
-                        match_entry(input, lexer::Token::Id)
-                    }
-                    else {
-                        operator(input)
-                    }
-                },
-                _ => operator(input)
+        Some(e) => match e.lexeme.chars().nth(0) {
+            Some(t) => {
+                if lexer::valid_id_char(t) {
+                    match_entry(input, lexer::Token::Id)
+                } else {
+                    operator(input)
+                }
             }
-        }, 
-        _ => { operator(input)
-    }
+            _ => operator(input),
+        },
+        _ => operator(input),
     }
 }
 
@@ -126,7 +120,6 @@ fn expression_list(input: &mut VecDeque<lexer::Entry>) -> bool {
             true
         }
     }
-
 }
 
 fn expression(input: &mut VecDeque<lexer::Entry>) -> bool {
@@ -141,6 +134,5 @@ fn expression(input: &mut VecDeque<lexer::Entry>) -> bool {
 }
 
 pub fn parse(input: &mut VecDeque<lexer::Entry>) -> bool {
-    expression_list(input) &&
-    match_entry(input, lexer::Token::EOF)
+    expression_list(input) && match_entry(input, lexer::Token::EOF)
 }

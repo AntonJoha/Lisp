@@ -2,7 +2,6 @@ use lisp;
 use lisp::lexer;
 use lisp::parser;
 
-
 fn test(input: String, expected: bool) {
     let mut r = lexer::lexer(input).unwrap();
     let res = parser::parse(&mut r);
@@ -10,7 +9,6 @@ fn test(input: String, expected: bool) {
     println!("\n{}\n", res);
 
     assert_eq!(expected, res);
-
 }
 
 #[test]
@@ -19,20 +17,16 @@ fn basic() {
     test(input, true)
 }
 
-
-
 #[test]
 fn error() {
     let input = "( a ) ( + d ( d aawd 2.33 )".to_string();
-    test(input, false);   
+    test(input, false);
 }
 
 #[test]
 fn empty() {
-    
     let input = "( )".to_string();
     test(input, false);
-
 }
 
 #[test]
@@ -44,13 +38,11 @@ fn list() {
 #[test]
 fn string_test() {
     let input = "( + \" oad pmrmp3 345 335 \" )".to_string();
-    test(input,true);
+    test(input, true);
 }
 
 #[test]
-fn wrong_op_place(){
+fn wrong_op_place() {
     let input = "( + + )".to_string();
     test(input, false);
 }
-
-

@@ -24,7 +24,7 @@ fn more(mut arguments: VecDeque<eval::Value>) -> eval::Value {
             arguments.push_front(eval::Value {
                 literal: {
                     (first.literal.parse::<i128>().unwrap() as i128
-                        + second.literal.parse::<i128>().unwrap() as i128)
+                        - second.literal.parse::<i128>().unwrap() as i128)
                         .to_string()
                 },
                 t: { lexer::Token::Number },
@@ -35,23 +35,10 @@ fn more(mut arguments: VecDeque<eval::Value>) -> eval::Value {
             arguments.push_front(eval::Value {
                 literal: {
                     (first.literal.parse::<f64>().unwrap() as f64
-                        + second.literal.parse::<f64>().unwrap() as f64)
+                        - second.literal.parse::<f64>().unwrap() as f64)
                         .to_string()
                 },
                 t: { lexer::Token::Float },
-                list: { VecDeque::new() },
-            });
-        }
-        lexer::Token::String => {
-            arguments.push_front(eval::Value {
-                literal: {
-                    {
-                        let mut a = first.literal.clone();
-                        a.push_str(second.literal.as_str());
-                        a.clone()
-                    }
-                },
-                t: { lexer::Token::String },
                 list: { VecDeque::new() },
             });
         }
@@ -66,7 +53,7 @@ fn more(mut arguments: VecDeque<eval::Value>) -> eval::Value {
     arguments.pop_front().unwrap()
 }
 
-pub fn plus(mut arguments: VecDeque<eval::Value>) -> eval::Value {
+pub fn minus(mut arguments: VecDeque<eval::Value>) -> eval::Value {
     let mut to_return: VecDeque<eval::Value> = VecDeque::new();
     if arguments.len() == 1 {
         to_return.push_back(match arguments.pop_front() {
@@ -75,11 +62,11 @@ pub fn plus(mut arguments: VecDeque<eval::Value>) -> eval::Value {
         });
     } else {
         let mut t: VecDeque<eval::Value> = VecDeque::new();
-        t.push_back(arguments.pop_back().unwrap());
-        t.push_back(arguments.pop_back().unwrap());
+        t.push_back(arguments.pop_front().unwrap());
+        t.push_back(arguments.pop_front().unwrap());
         let res = more(t);
         arguments.push_back(res);
-        return plus(arguments);
+        return minus(arguments);
     }
     to_return.pop_front().unwrap()
 }

@@ -62,7 +62,7 @@ fn subtraction() {
         "2".to_string(),
         "1".to_string(),
         ")".to_string(),
-        "".to_string()
+        "".to_string(),
     ];
     let t = vec![
         lexer::Token::Open,
@@ -84,7 +84,7 @@ fn float() {
         "2.342343241".to_string(),
         "1".to_string(),
         ")".to_string(),
-        "".to_string()
+        "".to_string(),
     ];
     let t = vec![
         lexer::Token::Open,
@@ -98,10 +98,12 @@ fn float() {
 }
 
 #[test]
-fn handle_string(){
+fn handle_string() {
     let input = "\"had dwwd (  ) d 32355345 . 3f34f \"".to_string();
-    let lexeme = vec![ "had dwwd (  ) d 32355345 . 3f34f ".to_string(),
-        "".to_string()];
+    let lexeme = vec![
+        "had dwwd (  ) d 32355345 . 3f34f ".to_string(),
+        "".to_string(),
+    ];
     let t = vec![lexer::Token::String, lexer::Token::EOF];
     compare_more(input, lexeme, t);
 }
@@ -139,7 +141,7 @@ fn list_test() {
         lexer::Token::Float,
         lexer::Token::Close,
         lexer::Token::Close,
-        lexer::Token::EOF
+        lexer::Token::EOF,
     ];
     compare_more(input, lexeme, t);
 }

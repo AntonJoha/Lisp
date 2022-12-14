@@ -34,9 +34,10 @@ fn mult(first: lexer::Token, second: lexer::Token) -> lexer::Token {
     match (first, second) {
         (lexer::Token::Number, lexer::Token::Number)  => lexer::Token::Number,
         (lexer::Token::Float, lexer::Token::Number) => lexer::Token::Float,
-        (lexer::Token::Char, lexer::Token::Number) => lexer::Token::Number,
+        (lexer::Token::Char, lexer::Token::Number) => lexer::Token::String,
         (lexer::Token::Float, lexer::Token::Float) => lexer::Token::Float,
         (lexer::Token::Char, lexer::Token::Char) => lexer::Token::Number,
+        (lexer::Token::String, lexer::Token::Number) => lexer::Token::String,
         _ => lexer::Token::Error,
     }
 }

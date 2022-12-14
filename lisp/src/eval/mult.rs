@@ -42,7 +42,7 @@ fn more(mut arguments: VecDeque<eval::Value>) -> eval::Value {
     };
 
     let new_type: lexer::Token =
-        lexer::operator(lexer::Token::Plus, first.t.clone(), second.t.clone());
+        lexer::operator(lexer::Token::Mult, first.t.clone(), second.t.clone());
 
     match new_type {
         lexer::Token::Number => {

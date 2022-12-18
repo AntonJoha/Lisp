@@ -1,6 +1,6 @@
+mod eval;
 mod lexer;
 mod parser;
-mod eval;
 use std::io;
 use std::io::Write;
 
@@ -11,25 +11,26 @@ fn get_input() -> String {
     s
 }
 
-
-fn print(){
-    
+fn print() {
     print!("lisp-cli>");
     io::stdout().flush().unwrap();
 }
 
 fn main() {
     loop {
-        
         print();
         let s = get_input();
         let mut a = match lexer::lexer(s) {
-            Ok(e) => e, 
-            _ => {println!("Weird input"); continue;}
+            Ok(e) => e,
+            _ => {
+                println!("Weird input");
+                continue;
+            }
         };
-        
+
         if !parser::parse(&mut a) {
-            println!("Parse failed"); continue;
+            println!("Parse failed");
+            continue;
         }
         eval::evaluate(a);
     }

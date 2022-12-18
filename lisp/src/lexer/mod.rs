@@ -1,4 +1,5 @@
 use std::collections::VecDeque;
+mod operators;
 
 #[derive(Eq, PartialEq, Debug, Clone)]
 pub enum Token {
@@ -15,6 +16,7 @@ pub enum Token {
     Close,
     Id,
     String,
+    Char,
     Number,
     Float,
     Error,
@@ -25,6 +27,10 @@ pub enum Token {
 pub struct Entry {
     pub lexeme: String,
     pub t: Token,
+}
+
+pub fn operator(op: Token, right: Token, left: Token) -> Token {
+    operators::operator_result(op, right, left)
 }
 
 //Valid character in id as specified in the documentation
@@ -138,30 +144,34 @@ fn construct_id(chars: &mut VecDeque<char>, mut curr: String) -> Entry {
     };
 }
 
-fn handle_string(chars: &mut VecDeque<char>) -> Entry{
-
+fn handle_string(chars: &mut VecDeque<char>) -> Entry {
     let mut s: String = String::new();
-    
+
     while chars.len() > 0 {
         match chars.pop_front() {
             Some(c) => {
                 if c == '"' {
-                    return Entry {lexeme: s, t: Token::String };
+                    return Entry {
+                        lexeme: s,
+                        t: Token::String,
+                    };
                 }
-                if c == '\\'{
+                if c == '\\' {
                     match chars.pop_front() {
                         Some(e) => s.push(e),
-                        None => ()
+                        None => (),
                     }
-                }
-                else {
+                } else {
                     s.push(c);
                 }
-            },
-            None => ()
+            }
+            None => (),
         }
     }
-    return Entry {lexeme: s, t: Token::String};
+    return Entry {
+        lexeme: s,
+        t: Token::String,
+    };
 }
 
 fn handle_rest(chars: &mut VecDeque<char>, curr: char) -> Entry {
@@ -224,9 +234,7 @@ pub fn lexer(input: String) -> Result<VecDeque<Entry>, String> {
                 lexeme: "'".to_string(),
                 t: Token::Pure,
             }),
-            '"' => {
-                to_return.push_back(handle_string(&mut chars))
-            },
+            '"' => to_return.push_back(handle_string(&mut chars)),
             e => to_return.push_back(handle_rest(&mut chars, e)),
         };
     }

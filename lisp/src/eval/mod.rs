@@ -6,6 +6,11 @@ pub mod plus;
 pub mod minus;
 pub mod mult;
 pub mod equal;
+pub mod not;
+pub mod less;
+pub mod div;
+pub mod and;
+pub mod or;
 
 pub struct Value {
     pub literal: String,
@@ -15,7 +20,7 @@ pub struct Value {
 
 pub fn get_error() -> Value {
     Value {
-        literal: "".to_string(),
+        literal: "0".to_string(),
         t: lexer::Token::Error,
         list: VecDeque::new(),
     }

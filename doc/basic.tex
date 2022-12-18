@@ -206,6 +206,53 @@ This as all other lists are currently incomplete.
 \end{center}
 \end{table}
 
+\begin{table}[h!]
+\begin{center}
+\begin{tabular}{ |c|c|c|c| }
+ \hline
+ operator & first & second & result   \\ \hline
+ = & any\_type & any\_type & integer \\ \hline
+\end{tabular}
+\caption{Rules for the = operator, all other actions result in error}
+\end{center}
+\end{table}
+
+\begin{table}[h!]
+\begin{center}
+\begin{tabular}{ |c|c|c|c| }
+ \hline
+ operator & first & second & result   \\ \hline
+  ! & any\_type & any\_type & integer \\ \hline
+\end{tabular}
+\caption{Rules for the ! operator, all other actions result in error}
+\end{center}
+\end{table}
+
+\begin{table}[h!]
+\begin{center}
+\begin{tabular}{ |c|c|c|c| }
+ \hline
+ operator & first & second & result   \\ \hline
+  < & integer & integer & integer \\ \hline
+  < & float & float & integer \\ \hline
+\end{tabular}
+\caption{Rules for the < operator, all other actions result in error}
+\end{center}
+\end{table}
+
+\begin{table}[h!]
+\begin{center}
+\begin{tabular}{ |c|c|c|c| }
+ \hline
+ operator & first & second & result   \\ \hline
+ / & integer & integer & integer   \\ \hline
+ / & integer & float & float\\ 	\hline
+ / & float & float & float \\ \hline
+\end{tabular}
+\caption{Rules for the * operator, all other actions result in error}
+\end{center}
+\end{table}
+
 
 
 

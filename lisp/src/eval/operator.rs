@@ -51,12 +51,12 @@ pub fn operator_eval(fun: lexer::Entry, arguments: VecDeque<eval::Value>) -> eva
         lexer::Token::Plus => eval::plus::plus(arguments),
         lexer::Token::Mult => eval::mult::mult(arguments),
         lexer::Token::Minus => eval::minus::minus(arguments),
-        lexer::Token::Equal => equal(arguments),
-        lexer::Token::Less => less(arguments),
-        lexer::Token::Div => div(arguments),
-        lexer::Token::Not => not(arguments),
-        lexer::Token::And => and(arguments),
-        lexer::Token::Or => or(arguments),
+        lexer::Token::Equal => eval::equal::equal(arguments),
+        lexer::Token::Less => eval::less::less(arguments),
+        lexer::Token::Div => eval::div::div(arguments),
+        lexer::Token::Not => eval::not::not(arguments),
+        lexer::Token::And => eval::and::and(arguments),
+        lexer::Token::Or => eval::or::or(arguments),
         _ => {
             panic!("Should not be here operator_eval");
         }

@@ -3,7 +3,6 @@ use std::collections::VecDeque;
 use super::super::eval;
 use super::super::lexer;
 
-
 fn more(mut arguments: VecDeque<eval::Value>) -> eval::Value {
     let mut to_return: VecDeque<eval::Value> = VecDeque::new();
 

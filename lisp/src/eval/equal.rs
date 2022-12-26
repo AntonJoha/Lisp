@@ -1,4 +1,3 @@
-
 use std::collections::VecDeque;
 
 use super::super::eval;
@@ -12,7 +11,6 @@ fn false_val() -> eval::Value {
     }
 }
 
-
 fn true_val() -> eval::Value {
     eval::Value {
         literal: "1".to_string(),
@@ -22,16 +20,14 @@ fn true_val() -> eval::Value {
 }
 
 fn one_arg(mut arguments: VecDeque<eval::Value>) -> eval::Value {
-        if arguments.pop_front().unwrap().literal != "0" {
-            true_val()
-        }
-        else {
-            false_val()
-        }
+    if arguments.pop_front().unwrap().literal != "0" {
+        true_val()
+    } else {
+        false_val()
+    }
 }
 
 fn multiple_equal(mut arguments: VecDeque<eval::Value>) -> eval::Value {
-
     let first: String = arguments.pop_front().unwrap().literal;
 
     while arguments.len() > 0 {
@@ -42,16 +38,12 @@ fn multiple_equal(mut arguments: VecDeque<eval::Value>) -> eval::Value {
     true_val()
 }
 
-
 pub fn equal(arguments: VecDeque<eval::Value>) -> eval::Value {
-
     if arguments.len() == 1 {
         one_arg(arguments)
-    }
-    else if arguments.len() == 0 {
+    } else if arguments.len() == 0 {
         false_val()
-    }
-    else {
+    } else {
         multiple_equal(arguments)
     }
 }

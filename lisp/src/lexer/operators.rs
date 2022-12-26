@@ -1,6 +1,5 @@
 use super::super::lexer;
 
-
 fn plus(first: lexer::Token, second: lexer::Token) -> lexer::Token {
     match (first, second) {
         (lexer::Token::Number, lexer::Token::Number) => lexer::Token::Number,
@@ -20,7 +19,7 @@ fn plus(first: lexer::Token, second: lexer::Token) -> lexer::Token {
 
 fn minus(first: lexer::Token, second: lexer::Token) -> lexer::Token {
     match (first, second) {
-        (lexer::Token::Number, lexer::Token::Number)  => lexer::Token::Number,
+        (lexer::Token::Number, lexer::Token::Number) => lexer::Token::Number,
         (lexer::Token::Float, lexer::Token::Number) => lexer::Token::Float,
         (lexer::Token::Char, lexer::Token::Number) => lexer::Token::Number,
         (lexer::Token::Float, lexer::Token::Float) => lexer::Token::Float,
@@ -32,7 +31,7 @@ fn minus(first: lexer::Token, second: lexer::Token) -> lexer::Token {
 
 fn mult(first: lexer::Token, second: lexer::Token) -> lexer::Token {
     match (first, second) {
-        (lexer::Token::Number, lexer::Token::Number)  => lexer::Token::Number,
+        (lexer::Token::Number, lexer::Token::Number) => lexer::Token::Number,
         (lexer::Token::Float, lexer::Token::Number) => lexer::Token::Float,
         (lexer::Token::Char, lexer::Token::Number) => lexer::Token::String,
         (lexer::Token::Float, lexer::Token::Float) => lexer::Token::Float,

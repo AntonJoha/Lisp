@@ -1,16 +1,18 @@
 use super::lexer;
 use std::collections::VecDeque;
 
-pub mod operator;
-pub mod plus;
+pub mod and;
+pub mod div;
+pub mod equal;
+pub mod less;
 pub mod minus;
 pub mod mult;
-pub mod equal;
 pub mod not;
-pub mod less;
-pub mod div;
-pub mod and;
+pub mod operator;
 pub mod or;
+pub mod plus;
+
+pub mod functions;
 
 pub struct Value {
     pub literal: String,
@@ -36,6 +38,8 @@ pub fn call_func(fun: lexer::Entry, arguments: VecDeque<Value>) -> Value {
 }
 
 pub fn process(input: &mut VecDeque<lexer::Entry>) -> Value {
+    //let mut Stack;
+
     let mut to_return: VecDeque<Value> = VecDeque::new();
 
     let fun = match input.pop_front() {
@@ -69,6 +73,7 @@ pub fn process(input: &mut VecDeque<lexer::Entry>) -> Value {
                     lexer::Token::Open => {
                         argument.push_back(process(input));
                     }
+                    lexer::Token::Id => if t.lexeme == "def".to_string() {},
                     _ => {
                         argument.push_back(Value {
                             literal: t.lexeme,

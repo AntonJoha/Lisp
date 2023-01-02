@@ -3,16 +3,14 @@ use std::collections::VecDeque;
 use super::super::eval;
 use super::super::lexer;
 
-fn string_mult(first: eval::Value, second: eval::Value) -> eval::Value{
-
+fn string_mult(first: eval::Value, second: eval::Value) -> eval::Value {
     let mut amount: i128 = 0;
     let mut s: String = String::new();
 
     if first.t == lexer::Token::Number {
         amount = first.literal.parse::<i128>().unwrap() as i128;
         s.push_str(second.literal.as_str());
-    }
-    else {
+    } else {
         amount = second.literal.parse::<i128>().unwrap() as i128;
         s.push_str(first.literal.as_str());
     }
@@ -22,12 +20,12 @@ fn string_mult(first: eval::Value, second: eval::Value) -> eval::Value{
     for _ in 0..amount {
         to_return.push_str(s.as_str());
     }
-    eval::Value { literal: to_return,
+    eval::Value {
+        literal: to_return,
         t: lexer::Token::String,
-        list: VecDeque::new()
+        list: VecDeque::new(),
     }
 }
-
 
 fn more(mut arguments: VecDeque<eval::Value>) -> eval::Value {
     let mut to_return: VecDeque<eval::Value> = VecDeque::new();

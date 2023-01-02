@@ -3,7 +3,6 @@ use std::collections::VecDeque;
 use super::super::eval;
 use super::super::lexer;
 
-
 fn false_val() -> eval::Value {
     eval::Value {
         literal: "0".to_string(),
@@ -11,7 +10,6 @@ fn false_val() -> eval::Value {
         list: VecDeque::new(),
     }
 }
-
 
 fn true_val() -> eval::Value {
     eval::Value {
@@ -21,11 +19,7 @@ fn true_val() -> eval::Value {
     }
 }
 
-
-
-pub fn and(mut arguments: VecDeque<eval::Value> ) -> eval::Value {
-
-    
+pub fn and(mut arguments: VecDeque<eval::Value>) -> eval::Value {
     for i in arguments {
         if i.literal == "0".to_string() {
             return false_val();
@@ -33,4 +27,3 @@ pub fn and(mut arguments: VecDeque<eval::Value> ) -> eval::Value {
     }
     return true_val();
 }
-

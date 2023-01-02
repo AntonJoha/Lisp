@@ -1,8 +1,10 @@
 mod eval;
+mod stack;
 mod lexer;
 mod parser;
 use std::io;
 use std::io::Write;
+use std::collections::VecDeque;
 
 fn get_input() -> String {
     let stdin = io::stdin();
@@ -17,6 +19,13 @@ fn print() {
 }
 
 fn main() {
+
+
+    //Initial stackframe
+    let mut stack: stack::Stack = stack::Stack{frames: VecDeque::new()};
+    stack.make_frame();
+
+
     loop {
         print();
         let s = get_input();
@@ -32,6 +41,6 @@ fn main() {
             println!("Parse failed");
             continue;
         }
-        eval::evaluate(a);
+        eval::evaluate(a, &mut stack);
     }
 }

@@ -70,14 +70,17 @@ pub fn process(input: &mut VecDeque<lexer::Entry>, stack: &mut stack::Stack) -> 
         },
     };
 
-    if fun.lexeme.clone() == "def".to_string() {
+    match fun.lexeme.clone().as_ref(){
+        "def" => {
         let s = stack.insert_function(input);
         //Remove the last ')' as well 
         input.pop_front();
         return Value {literal: s,
             t: lexer::Token::Id,
             list: VecDeque::new()};
-    }
+        }
+        _ => ()
+    };
 
     match fun.t.clone() {
         lexer::Token::Open => {

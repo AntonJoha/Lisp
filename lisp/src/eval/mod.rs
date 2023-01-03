@@ -12,6 +12,7 @@ pub mod not;
 pub mod operator;
 pub mod or;
 pub mod plus;
+pub mod condition;
 
 
 pub mod function;
@@ -78,6 +79,9 @@ pub fn process(input: &mut VecDeque<lexer::Entry>, stack: &mut stack::Stack) -> 
         return Value {literal: s,
             t: lexer::Token::Id,
             list: VecDeque::new()};
+        },
+        "if" => {
+            return condition::handle_if(input, stack);
         }
         _ => ()
     };

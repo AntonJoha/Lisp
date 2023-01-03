@@ -254,7 +254,22 @@ This as all other lists are currently incomplete.
 \end{table}
 
 
+\subsection{Conditionals}
 
+\subsubsection{If}
+
+The conditional \texttt{if} can be used to perform one of two actions. 
+The structure for calling this is: 
+\begin{lstlisting}
+( if <condition> <if-true> <if-false> ) 
+\end{lstlisting}
+For example is this an if-statement which returns $1 + 1 $ if $1 == 1$, else it returns $1 - 1$.
+\begin{lstlisting}
+( if (== 1 1 ) 
+	( + 1 1 )
+	( - 1 1 )
+)
+\end{lstlisting}
 
 \section{Grammar}
 

@@ -11,6 +11,8 @@ pub struct Function{
 }
 
 
+
+
 fn get_input(input: &mut VecDeque<lexer::Entry>) -> VecDeque<lexer::Entry> {
     let mut to_return: VecDeque<lexer::Entry> = VecDeque::new();
 
@@ -162,15 +164,15 @@ impl Stack {
     }
 
     //Goes up the whole stack to the end
-    pub fn get_function(&self, index: String) -> Function {
+    pub fn get_function(&self, index: String) -> Option<Function> {
 
         for frame in &self.frames {
             match frame.get_function(&index) {
-                Some(e) => return e,
+                Some(e) => return Some(e),
                 _ => ()
             };
         }
-        panic!("Function not found");
+        None
     }
 
 }

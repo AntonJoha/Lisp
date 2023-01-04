@@ -22,10 +22,8 @@ fn add_to_stack(function: &stack::Function, mut arguments: VecDeque<eval::Value>
 
 }
 
-pub fn function_eval(fun: lexer::Entry, stack: &mut stack::Stack, arguments: VecDeque<eval::Value>) -> eval::Value {
 
-
-    let mut function: stack::Function = stack.get_function(fun.lexeme);
+fn lisp_function(mut function: stack::Function, stack: &mut stack::Stack, arguments: VecDeque<eval::Value> ) -> eval::Value {
 
     stack.make_frame();
 
@@ -35,4 +33,15 @@ pub fn function_eval(fun: lexer::Entry, stack: &mut stack::Stack, arguments: Vec
 
     stack.pop_frame();
     res
+
+}
+
+pub fn function_eval(fun: lexer::Entry, stack: &mut stack::Stack, arguments: VecDeque<eval::Value>) -> eval::Value {
+
+
+    match stack.get_function(fun.lexeme) {
+        Some(function) => lisp_function(function, stack, arguments),
+        _ => eval::get_error()
+    }
+
 }

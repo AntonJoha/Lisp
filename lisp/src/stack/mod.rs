@@ -118,6 +118,28 @@ pub struct Stack {
 
 impl Stack {
     
+
+    //Function that adds the given input values to the stack
+    pub fn add_to_stack(&mut self, function: &Function, mut arguments: VecDeque<eval::Value>) {
+
+        for i in 0..function.args.len() {
+
+            let name = function.args.get(i).unwrap();
+
+            let val: eval::Value = match arguments.pop_front() {
+                Some(e) => e,
+                None => eval::get_error()
+            };
+        
+            self.insert_value(val, name.clone());
+
+        }
+
+}
+
+
+
+
     pub fn make_frame(&mut self) {
         self.frames.push_front(StackFrame { values: HashMap::new(), func:HashMap::new() } );
     }

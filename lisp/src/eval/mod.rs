@@ -13,6 +13,7 @@ pub mod operator;
 pub mod or;
 pub mod plus;
 pub mod condition;
+pub mod predefined;
 
 
 pub mod function;

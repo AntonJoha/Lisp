@@ -11,6 +11,8 @@ pub struct Function{
 }
 
 
+
+
 fn get_input(input: &mut VecDeque<lexer::Entry>) -> VecDeque<lexer::Entry> {
     let mut to_return: VecDeque<lexer::Entry> = VecDeque::new();
 
@@ -116,6 +118,28 @@ pub struct Stack {
 
 impl Stack {
     
+
+    //Function that adds the given input values to the stack
+    pub fn add_to_stack(&mut self, function: &Function, mut arguments: VecDeque<eval::Value>) {
+
+        for i in 0..function.args.len() {
+
+            let name = function.args.get(i).unwrap();
+
+            let val: eval::Value = match arguments.pop_front() {
+                Some(e) => e,
+                None => eval::get_error()
+            };
+        
+            self.insert_value(val, name.clone());
+
+        }
+
+}
+
+
+
+
     pub fn make_frame(&mut self) {
         self.frames.push_front(StackFrame { values: HashMap::new(), func:HashMap::new() } );
     }
@@ -162,15 +186,15 @@ impl Stack {
     }
 
     //Goes up the whole stack to the end
-    pub fn get_function(&self, index: String) -> Function {
+    pub fn get_function(&self, index: String) -> Option<Function> {
 
         for frame in &self.frames {
             match frame.get_function(&index) {
-                Some(e) => return e,
+                Some(e) => return Some(e),
                 _ => ()
             };
         }
-        panic!("Function not found");
+        None
     }
 
 }

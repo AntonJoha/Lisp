@@ -64,7 +64,7 @@ pub fn minus(mut arguments: VecDeque<eval::Value>) -> eval::Value {
         t.push_back(arguments.pop_front().unwrap());
         t.push_back(arguments.pop_front().unwrap());
         let res = more(t);
-        arguments.push_back(res);
+        arguments.push_front(res);
         return minus(arguments);
     }
     to_return.pop_front().unwrap()

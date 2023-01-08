@@ -246,6 +246,7 @@ pub fn evaluate(mut input: VecDeque<lexer::Entry>, stack: &mut stack::Stack) {
             lexer::Token::Open => {
                 let result = process(&mut input,  stack);
                 print_value(result);
+                println!("");
             }
             //lexer::Token::Pure => {
             //    let result = purelist(&input);

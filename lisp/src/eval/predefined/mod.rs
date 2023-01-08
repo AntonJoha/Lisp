@@ -26,6 +26,7 @@ fn get_function(function: lexer::Entry) -> fn(&mut stack::Stack, VecDeque<eval::
         "rest" => list::rest,
         "get" => list::get,
         "list" => list::list,
+        "len" => list::len,
         "print" => print::print,
         _ =>  empty_function
     }

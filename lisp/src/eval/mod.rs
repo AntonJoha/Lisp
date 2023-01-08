@@ -255,5 +255,4 @@ pub fn evaluate(mut input: VecDeque<lexer::Entry>, stack: &mut stack::Stack) {
             }
         }
     }
-    println!("");
-}
+    gg0;81;30M[<0;81;30m

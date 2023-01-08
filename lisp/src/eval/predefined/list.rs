@@ -34,6 +34,7 @@ pub fn get(_stack: &mut stack::Stack,mut arguments: VecDeque<eval::Value>) -> ev
 
 }
 
+
 pub fn first(_stack: &mut stack::Stack,mut arguments: VecDeque<eval::Value> ) -> eval::Value {
 
     arguments.push_front(eval::Value {
@@ -58,7 +59,12 @@ pub fn list(_stack: &mut stack::Stack, mut arguments: VecDeque<eval::Value>) -> 
 
 pub fn len(_stack: &mut stack::Stack, mut argument: VecDeque<eval::Value>) -> eval::Value {
 
-    eval::get_error()
+    let to_return = argument.pop_front().unwrap();
+    eval::Value {
+        literal: to_return.list.len().to_string(),
+        t: lexer::Token::Number,
+        list: VecDeque::new()
+    }
 
 }
 

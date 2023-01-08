@@ -7,3 +7,91 @@ But when new features arrive they should be added here.
 There's an issue with the intent of storing different function needs and ideas found \href{https://github.com/AntonJoha/Lisp/issues/11}{here}.
 If anyone happens to find this then feel free to add to it. 
 
+
+\subsection{User interface}
+
+This is a collection of predefined functions which are to be used by the users. 
+This will range from functions for user input and output. 
+It might also in the future contain functions for basic TUI. 
+
+
+\subsubsection{print}
+
+This is a function which takes values and prints them to the terminal.
+
+Usage:
+\begin{lstlisting}
+(print "Hello world")
+\end{lstlisting}
+Prints ``Hello world'' to the terminal.
+\begin{lstlisting}
+(print '(1 2 3))
+\end{lstlisting}
+Prints ``(1 2 3)'' to the terminal.
+\begin{lstlisting}
+(print '(1 2 3) '(4 5 6))
+\end{lstlisting}
+Prints ( 1 2 3 ) ( 4 5 6 ) to the terminal.
+
+\subsection{List operations}
+
+This is a collection over all of the predefined operations which can be done on a list.
+
+\subsubsection{list}
+
+This is the function which can be used to create a list. 
+It takes an unspecified amount of variables and returns a list of them in the given order. 
+
+Usage:
+\begin{lstlisting}
+(list 1 2 3 4 5)
+\end{lstlisting}
+Creates the list (1 2 3 4 5).
+\begin{lstlisting}
+( def calc ( left right) 
+	( list
+		( + left right)
+		( - left right)
+		( * left right)
+		( / left right)
+	)
+)
+\end{lstlisting}
+Definition for a function which creates a list of the sum, difference, product and quotient of two numbers.
+\begin{lstlisting}
+(list ( calc 1 2) ( calc 3 4))
+\end{lstlisting}
+A list of lists.
+
+\subsubsection{rest}
+
+This function take a list and returns another list with all but the first element. 
+It's intended to used for recursion and other situations. 
+
+Usage:
+\begin{lstlisting}
+(rest ( list 1 2 3 4 5))
+\end{lstlisting}
+Returns (2 3 4 5).
+
+\subsubsection{first}
+
+This is a function which takes a list and returns the first element of it.
+
+Usage:
+\begin{lstlisting}
+(first '( 1 2 3 4 5))
+\end{lstlisting}
+Returns 1.
+
+\subsubsection{get}
+
+This function takes a list and an index and returns the element at that index.
+
+Usage:
+\begin{lstlisting}
+(get 2 '(1 2 3 4 5) )
+\end{lstlisting}
+Returns 3.
+
+

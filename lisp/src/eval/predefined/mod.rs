@@ -3,11 +3,12 @@ use super::super::stack;
 use super::super::lexer;
 use std::collections::VecDeque;
 
+mod list;
 mod exit;
+mod print;
 
 
 fn empty_function(_stack: &mut stack::Stack, _arguments: VecDeque<eval::Value> ) -> eval::Value {
-
 
     eval::Value {
         literal: "Error, no function found".to_string(),
@@ -21,6 +22,11 @@ fn get_function(function: lexer::Entry) -> fn(&mut stack::Stack, VecDeque<eval::
 
     match function.lexeme.as_str() {
         "exit" =>  exit::exit,
+        "first" => list::first,
+        "rest" => list::rest,
+        "get" => list::get,
+        "list" => list::list,
+        "print" => print::print,
         _ =>  empty_function
     }
 

@@ -25,6 +25,15 @@ pub struct Value {
     pub list: VecDeque<Value>,
 }
 
+
+pub fn none_value() -> Value {
+    Value {
+        literal: "1".to_string(),
+        t: lexer::Token::Number,
+        list: VecDeque::new()
+    }
+}
+
 pub fn get_error() -> Value {
     Value {
         literal: "0".to_string(),
@@ -33,8 +42,50 @@ pub fn get_error() -> Value {
     }
 }
 
+fn get_list(input:&mut VecDeque<lexer::Entry>, stack: &mut stack::Stack) -> Value {
+    
+    let mut to_return: VecDeque<Value> = VecDeque::new();
+
+    //Get rid of the opening parentheses
+    input.pop_front();
+
+    loop {
+
+        let value = match input.pop_front() {
+            Some(e) => e,
+            _ => {panic!("Error no value found");}
+        };
+
+        match value.t.clone() {
+            lexer::Token::Pure => {
+                to_return.push_back(get_list(input, stack));
+            },
+            lexer::Token::Close => {
+                return Value {
+                    literal: "".to_string(),
+                    t: lexer::Token::Pure,
+                    list: to_return,
+                };
+            },
+            lexer::Token::Open => {
+                to_return.push_back(process(input, stack));
+            },
+            _ => {
+                to_return.push_back(Value {
+                    literal: value.lexeme,
+                    t: value.t,
+                    list: VecDeque::new(),
+                });
+            },
+        }
+    }
+}
+
+
+
 fn get_arguments(arguments:VecDeque<Value>, stack: &mut stack::Stack) -> VecDeque<Value> {
     let mut to_return: VecDeque<Value> = VecDeque::new();
+
 
     for value in arguments {
         if value.t.clone() == lexer::Token::Id {
@@ -50,6 +101,7 @@ fn get_arguments(arguments:VecDeque<Value>, stack: &mut stack::Stack) -> VecDequ
 pub fn call_func(fun: lexer::Entry, arguments: VecDeque<Value>, stack: &mut stack::Stack) -> Value {
 
     let args = get_arguments(arguments, stack);
+
 
     match fun.t.clone() {
         lexer::Token::Id => {
@@ -121,6 +173,11 @@ pub fn process(input: &mut VecDeque<lexer::Entry>, stack: &mut stack::Stack) -> 
                                                list: VecDeque::new()});
                         }
                     },
+                    lexer::Token::Pure => {
+
+                        argument.push_back(get_list(input, stack));
+
+                    }
                     _ => {
                         argument.push_back(Value {
                             literal: t.lexeme,

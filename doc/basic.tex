@@ -281,7 +281,7 @@ expression-list ::= <expression> <expression-list> | <expression>
 expression ::= <list> 
 	| <evals>
 list ::= '( <entry-list> )
-evals ::= ( <func> <entry-list> ) 
+evals ::= ( <func> <entry-list> ) | ( ) 
 func ::= <operator> | <pre-defined>
 id ::= [a-z,A-Z][a-z,A-Z,0-9,\_]+
 	| <operator> 

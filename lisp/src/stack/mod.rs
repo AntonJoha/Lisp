@@ -32,7 +32,14 @@ fn get_input(input: &mut VecDeque<lexer::Entry>) -> VecDeque<lexer::Entry> {
             lexer::Token::Close => { count -= 1;
                 to_return.push_back(v); 
                 if count < 1 {
-                    return to_return;
+                    let v = input.pop_front().unwrap();
+                    match  v.t.clone() {
+                        lexer::Token::Open => {to_return.push_back(v); 
+                            count += 1 ;
+                            continue;
+                        },
+                        _ => {input.push_front(v); return to_return;},
+                    }
                 }
             },
             _ => to_return.push_back(v)
@@ -46,8 +53,10 @@ fn get_args(input: &mut VecDeque<lexer::Entry>) -> VecDeque<String> {
 
     let mut to_return: VecDeque<String> = VecDeque::new();
 
-    input.pop_front().unwrap();
 
+    let val = input.pop_front().unwrap();
+
+    println!("{:?} {}", val.t, val.lexeme);
 
     loop {
     

@@ -59,6 +59,7 @@ fn entry(input: &mut VecDeque<lexer::Entry>) -> bool {
             || peek_match(input, lexer::Token::Id)
             || peek_match(input, lexer::Token::Float)
             || peek_match(input, lexer::Token::String)
+
     }
 }
 
@@ -107,9 +108,15 @@ fn func(input: &mut VecDeque<lexer::Entry>) -> bool {
 
 fn evals(input: &mut VecDeque<lexer::Entry>) -> bool {
     match_entry(input, lexer::Token::Open)
-        && func(input)
+    &&
+    if peek_match(input, lexer::Token::Close) {
+        true
+    }
+    else {
+        func(input)
         && entry_list(input)
         && match_entry(input, lexer::Token::Close)
+    }
 }
 
 fn expression_list(input: &mut VecDeque<lexer::Entry>) -> bool {

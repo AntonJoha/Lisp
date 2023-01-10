@@ -1,6 +1,7 @@
 pub mod utils;
 mod operators;
 mod lists;
+mod files;
 
 //Test a simple addition
 #[test]
@@ -22,6 +23,13 @@ fn func_test() {
 
 }
 
+
+#[test]
+fn basic_file() {
+    let v = utils::test_file("tests/basic.lisp".to_string());
+
+    assert_eq!(v.literal, "3");
+}
 
 
 //Test a simple if case

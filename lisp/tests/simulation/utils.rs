@@ -3,6 +3,7 @@ use std::collections::VecDeque;
 use lisp::lexer;
 use lisp::parser;
 use lisp::eval;
+use std::fs;
 
 pub struct Fakerand {
     pub value: u128
@@ -46,6 +47,35 @@ pub fn parse_input(input: String) -> VecDeque<lexer::Entry> {
 
 }
 
+
+pub fn test_file(filepath: String) -> eval::Value {
+
+     
+
+    let content = fs::read_to_string(filepath.clone())
+        .expect("Could not read file");
+
+        let mut a = match lexer::lexer(content) {
+            Ok(e) => e,
+            _ => {
+                println!("Weird input");
+                return eval::get_error();
+            }
+        };
+
+        if !parser::parse(&mut a) {
+            //panic!("Parse failed {}", filepath);
+        }
+
+
+    //Initial stackframe
+    let mut stack: stack::Stack = stack::Stack{frames: VecDeque::new()};
+    stack.make_frame();
+
+    eval::evaluate(a, &mut stack)
+
+
+}
 
 //Just a simple wrapper if the user wants to run a single argument 
 pub fn run_input(input: String) -> eval::Value {

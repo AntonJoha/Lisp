@@ -26,7 +26,7 @@ fn error() {
 #[test]
 fn empty() {
     let input = "( )".to_string();
-    test(input, false);
+    test(input, true);
 }
 
 #[test]

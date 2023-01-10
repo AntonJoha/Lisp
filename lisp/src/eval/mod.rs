@@ -136,6 +136,13 @@ pub fn process(input: &mut VecDeque<lexer::Entry>, stack: &mut stack::Stack) -> 
         "if" => {
             return condition::handle_if(input, stack);
         }
+        ")" => {
+            return Value {
+                literal: "".to_string(),
+                t: lexer::Token::Pure,
+                list: VecDeque::new(),
+            };
+        }
         _ => ()
     };
 
@@ -220,7 +227,8 @@ pub fn process(input: &mut VecDeque<lexer::Entry>, stack: &mut stack::Stack) -> 
     }
 }
 
-fn print_value(v: Value) {
+
+fn print_rec(v: Value){
     if v.t == lexer::Token::Open {
         print!("( ");
         for a in v.list {
@@ -232,7 +240,16 @@ fn print_value(v: Value) {
     }
 }
 
-pub fn evaluate(mut input: VecDeque<lexer::Entry>, stack: &mut stack::Stack) {
+pub fn print_value(v: Value) {
+    print_rec(v);
+    println!("");
+}
+
+pub fn evaluate(mut input: VecDeque<lexer::Entry>, stack: &mut stack::Stack) -> Value{
+
+    let mut to_return: Value = get_error();
+
+
     while input.len() > 0 {
         let entry = match input.pop_front() {
             Some(e) => e,
@@ -244,9 +261,7 @@ pub fn evaluate(mut input: VecDeque<lexer::Entry>, stack: &mut stack::Stack) {
 
         match entry.t.clone() {
             lexer::Token::Open => {
-                let result = process(&mut input,  stack);
-                print_value(result);
-                println!("");
+                to_return = process(&mut input,  stack);
             }
             //lexer::Token::Pure => {
             //    let result = purelist(&input);
@@ -256,5 +271,6 @@ pub fn evaluate(mut input: VecDeque<lexer::Entry>, stack: &mut stack::Stack) {
             }
         }
     }
+    to_return
 }
 

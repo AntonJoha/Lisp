@@ -30,7 +30,7 @@ fn lisp_function(mut function: stack::Function, stack: &mut stack::Stack, argume
 
     stack.add_to_stack(&function, arguments);
     
-    let res = eval::process(&mut function.input, stack);
+    let res = eval::evaluate(function.input, stack);
 
     stack.pop_frame();
     res

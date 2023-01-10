@@ -24,7 +24,7 @@ pub enum Token {
     EOF,
 }
 
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 pub struct Entry {
     pub lexeme: String,
     pub t: Token,

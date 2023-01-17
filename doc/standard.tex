@@ -33,6 +33,17 @@ Prints ``(1 2 3)'' to the terminal.
 \end{lstlisting}
 Prints ( 1 2 3 ) ( 4 5 6 ) to the terminal.
 
+\subsubsection{input}
+
+This is a function which takes an input from the user in the form of a line. 
+It then returns a string of the line. 
+It will always be a string type.
+
+Usage:
+\begin{lstlisting}
+(input)
+\end{lstlisting}
+
 \subsection{List operations}
 
 This is a collection over all of the predefined operations which can be done on a list.
@@ -95,3 +106,42 @@ Usage:
 Returns 3.
 
 
+\subsection{Type operations}
+
+This is a collection of functions which regard the type of a variable. 
+It can be used to change type, check type or more. 
+
+\subsubsection{integer} \label{type:integer}
+
+Convert one or more variables to an integer.
+
+Usage:
+\begin{lstlisting}
+(integer 1.0)
+\end{lstlisting}
+Returns 1.
+\begin{lstlisting}
+(integer 1.0 2.0 3.0)
+\end{lstlisting}
+Returns (1 2 3).
+\begin{lstlisting}
+(integer "1")
+\end{lstlisting}
+Returns 1.
+\begin{lstlisting}
+(integer '( "1" "2" ) 3.0)
+\end{lstlisting}
+Returns ( ( 1 2 )  3).
+
+\subsubsection{float}
+
+Like integer but returns float instead see \ref{type:integer}. 
+
+
+\subsubsection{string}
+
+Like integer but returns string instead see \ref{type:integer}.
+
+\subsubsection{id}
+
+Like integer but returns input instead see \ref{type:integer}.

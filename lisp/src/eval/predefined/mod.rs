@@ -34,6 +34,7 @@ fn get_function(function: lexer::Entry) -> fn(&mut stack::Stack, VecDeque<eval::
         "string" => types::string,
         "float" => types::float,
         "id" => types::id,
+        "insert" => list::insert,
         _ =>  empty_function,
     }
 }

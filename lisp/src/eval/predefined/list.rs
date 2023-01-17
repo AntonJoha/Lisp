@@ -57,6 +57,32 @@ pub fn list(_stack: &mut stack::Stack, mut arguments: VecDeque<eval::Value>) -> 
     }
 }
 
+
+
+pub fn insert(_stack: &mut stack::Stack, mut argument: VecDeque<eval::Value>) -> eval::Value {
+
+    if argument.len() != 3 {
+        return eval::get_error( );
+    }
+
+    let insert = argument.pop_front().unwrap();
+    let pos = argument.pop_front().unwrap().literal.parse::<usize>().unwrap();
+    let mut list = argument.pop_front().unwrap();
+
+    if pos > list.list.len() {
+        list.list.push_back(insert);
+    }
+    else {
+        list.list.insert(pos, insert);
+    }
+    eval::Value {
+        literal: "".to_string(),
+        t: lexer::Token::Pure,
+        list: list.list,
+    }
+}
+
+
 pub fn len(_stack: &mut stack::Stack, mut argument: VecDeque<eval::Value>) -> eval::Value {
 
     let to_return = argument.pop_front().unwrap();

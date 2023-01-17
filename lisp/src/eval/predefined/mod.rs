@@ -6,7 +6,8 @@ use std::collections::VecDeque;
 mod list;
 mod exit;
 mod print;
-
+mod input;
+mod types;
 
 fn empty_function(_stack: &mut stack::Stack, _arguments: VecDeque<eval::Value> ) -> eval::Value {
 
@@ -28,9 +29,13 @@ fn get_function(function: lexer::Entry) -> fn(&mut stack::Stack, VecDeque<eval::
         "list" => list::list,
         "len" => list::len,
         "print" => print::print,
-        _ =>  empty_function
+        "input" => input::input,
+        "integer" => types::integer,
+        "string" => types::string,
+        "float" => types::float,
+        "id" => types::id,
+        _ =>  empty_function,
     }
-
 }
 
 
